@@ -5,3 +5,28 @@
     @apply outline-none focus:outline-none;
   }
 }
+
+@layer components {
+  .btn-orange {
+    @apply bg-orange-600 text-white px-6 py-2 cursor-pointer transition-transform active:scale-95 hover:shadow-md hover:shadow-slate-600;
+  }
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ea580c;
+}
