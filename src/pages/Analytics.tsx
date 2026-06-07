@@ -1,7 +1,52 @@
+import React, { useEffect } from "react";
 import { useTransactions } from "../context/TransactionContext";
+import { GoogleGenAI } from "@google/genai";
+
+let cachedAIAdvice = "";
 
 export default function Analytics() {
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+    const [aiAdvice, setAiAdvice] = React.useState<string>(
+        "Analyzing your financial data...",
+    );
     const { transactions } = useTransactions();
+    const [loadingAi, setLoadingAi] = React.useState<boolean>(true);
+
+    useEffect(() => {
+        async function fetchAIAdvice() {
+            if (transactions.length === 0) return;
+            if (cachedAIAdvice) {
+                setAiAdvice(cachedAIAdvice);
+                setLoadingAi(false);
+                return;
+            }
+            try {
+                setLoadingAi(true);
+                const response = await ai.models.generateContent({
+                    model: "gemini-2.5-flash",
+                    contents: `You are a professional financial advisor. Here is the user's data: 
+        Total Income: $${totalIncome}, Total Expense: $${totalExpense}, Current Savings: $${totalSavings}. 
+        Breakdown by Category: ${JSON.stringify(categoryTotals)}.
+        Please give a short, powerful, 2-line financial advice based on this data. Address the user as Abhay.`,
+                });
+
+                if (response.text) {
+                    cachedAIAdvice = response.text;
+                    setAiAdvice(response.text);
+                }
+            } catch (error: any) {
+                console.error("AI Error:", error);
+                setAiAdvice(
+                    "Rate limit active. Please wait a minute or check your internet connection.",
+                );
+            } finally {
+                setLoadingAi(false);
+            }
+        }
+
+        fetchAIAdvice();
+    }, []);
+
     const categoryTotals: { [key: string]: number } = {};
 
     transactions
@@ -120,18 +165,25 @@ export default function Analytics() {
                             </div>
                         </div>
 
-                        <div className="bg-orange-50 border border-orange-100 p-4 rounded-lg mt-6">
-                            <h4 className="text-sm font-semibold text-orange-800 flex items-center gap-1">
-                                💡 Quick Financial Insight
+                        {/* Asli AI-Powered Insight Panel */}
+                        <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl mt-6">
+                            <h4 className="text-sm font-bold text-orange-800 flex items-center gap-1.5">
+                                🤖 Gemini AI Financial Advisor
                             </h4>
-                            <p className="text-xs text-orange-700 mt-1 leading-relaxed">
-                                {expensePercentage > 70
-                                    ? "Alert: You have spent more than 70% of your total income. It might be a good time to cut down on unnecessary expenses!"
-                                    : expensePercentage === 0
-                                      ? "Great start! You haven't recorded any expenses yet. Keep monitoring your flow."
-                                      : "Good job! Your budget is well under control and you are maintaining a healthy savings rate."}
+                            <p className="text-xs text-orange-700 mt-1.5 leading-relaxed font-medium">
+                                {loadingAi ? (
+                                    <span className="flex items-center gap-2">
+                                        <span className="animate-spin text-sm">
+                                            ⏳
+                                        </span>{" "}
+                                        Thinking and calculating your budgets...
+                                    </span>
+                                ) : (
+                                    aiAdvice
+                                )}
                             </p>
                         </div>
+
                         <div className="border-t border-gray-100 pt-6 mt-6">
                             <h3 className="text-sm font-semibold text-gray-700 mb-4">
                                 🛒 Category-wise Expenses
