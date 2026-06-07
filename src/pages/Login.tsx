@@ -9,7 +9,7 @@ export default function Login() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <div className="p-8 bg-white rounded-lg shadow-md w-96 text-center">
+            <div className="p-8 bg-white rounded-lg shadow-md w-80 sm:w-96 text-center">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">
                     Welcome Back
                 </h2>
