@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# 📊 FinTrack - AI-Powered Expense Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FinTrack is a modern, responsive, and ultra-fast personal finance tracker built with **React**, **TypeScript**, and **Tailwind CSS**. It helps users manage their daily transactions, view expense distributions through intuitive progress bars, and get personalized financial advice using **Google Gemini AI**.
 
-Currently, two official plugins are available:
+🚀 **Live Demo:** https://expensetrackgenai.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Dashboard:** Track income, expenses, and total balance with modern UI cards.
+- **Visual Analytics:** Category-wise expense breakdown with dynamic progress bars.
+- **AI Financial Advisor:** Integrated with the latest `@google/genai` SDK (`gemini-2.5-flash`) to analyze your data and give smart budgeting tips.
+- **Performance Optimized:** Implemented a global caching system in React to prevent unnecessary API calls and avoid `429 Rate Limit` errors during page switching.
+- **Mobile-First Design:** Features a responsive layout that automatically transitions into a thumb-friendly **Bottom Navigation Bar** on mobile devices.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend:** React (Vite), TypeScript, Tailwind CSS
+- **Icons:** Lucide React
+- **AI Integration:** `@google/genai` (Gemini API)
+- **Deployment:** Vercel
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+Follow these steps to run the project locally on your machine:
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/codeid9/expense-tracker.git
+cd expense-transe.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install Dependencies
+Make sure you have Node.js installed, then run:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Bash
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Run the database migration scripts or set up your transaction tables using your preferred setup.
+
+3. Set Up Environment Variables
+Create a .env file in the root directory of the project and add your respective credentials:
+
+Code snippet
+# Google Gemini API Key
+VITE_GEMINI_API_KEY=your_google_gemini_api_key_here
+
+4. Run the Development Server
+Bash
+npm run dev
+Open http://localhost:5173 in your browser to see the app live and running!
+
+🤝 Contributing
+This project is open-source, and anyone can contribute! Whether you want to fix a bug, optimize the codebase, add a new layout feature, or improve the documentation, your help is highly appreciated.
+
+How to get started:
+Fork the repository to your own GitHub account.
+
+Clone your forked repo and create a new branch for your feature:
+
+Bash
+git checkout -b feature/AmazingFeature
+Commit your modifications with a clear message:
+
+Bash
+git commit -m 'Add some AmazingFeature'
+Push your branch upstream:
+
+Bash
+git push origin feature/AmazingFeature
+Open a Pull Request (PR) against the main branch, and I will review and merge it!
+
+📝 License
+Distributed under the MIT License. See LICENSE for more information.
